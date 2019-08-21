@@ -1,0 +1,7 @@
+module Workarea
+  decorate Catalog::Product, with: :google_product_feed do
+    decorated do
+      field :google_category, type: String
+    end
+  end
+end
