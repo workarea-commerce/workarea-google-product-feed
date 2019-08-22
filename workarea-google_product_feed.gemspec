@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = 'Google Product Feed for the Workarea commerce platform'
   s.description = 'Google Product Feed Rails Engine of the Workarea commerce platform'
   s.files       = `git ls-files`.split("\n")
+  s.license = 'Business Software License'
 
   s.add_dependency 'workarea', '~> 3.x', '>= 3.2'
 end
