@@ -1,7 +1,7 @@
-Workarea Google Production Feed
+Workarea Google Product Feed
 ================================================================================
-Google Production Feed for the Workarea Platform
 
+Google Product Feed for the Workarea Platform
 
 Google category
 --------------------------------------------------------------------------------
@@ -17,45 +17,27 @@ The workarea platform implements this field by:
 Getting Started
 --------------------------------------------------------------------------------
 
-You must have access to a WebLinc gems server to use this gem. Add your gems server credentials to Bundler:
-
-```bash
-$ bundle config gems.weblinc.com my_username:my_password
-```
-
-Or set the appropriate environment variable in a shell startup file:
-
-```bash
-$ export BUNDLE_GEMS__WEBLINC__COM='my_username:my_password'
-```
-
-Then add the gem to your application's Gemfile specifying the source:
+Add the gem to your application's Gemfile:
 
 ```ruby
 # ...
-gem 'workarea-google_product_feed', source: 'https://gems.weblinc.com'
-# ...
-```
-
-Or use a source block:
-
-```ruby
-# ...
-source 'https://gems.weblinc.com' do
-  gem 'workarea-google_product_feed'
-end
+gem 'workarea-google_product_feed'
 # ...
 ```
 
 Update your application's bundle.
 
 ```bash
-$ cd path/to/application ; bundle
+cd path/to/application
+bundle
 ```
 
-Copyright & Licensing
+Workarea Commerce Documentation
 --------------------------------------------------------------------------------
 
-Copyright WebLinc 2018. All rights reserved.
+See [https://developer.workarea.com](https://developer.workarea.com) for Workarea Commerce documentation.
 
-For licensing, contact sales@workarea.com.
+License
+--------------------------------------------------------------------------------
+
+Workarea Google Product Feed is released under the [Business Software License](LICENSE)
