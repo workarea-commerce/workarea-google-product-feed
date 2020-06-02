@@ -18,7 +18,7 @@ module Workarea
       end
 
        def inventory
-        inventory_sku? ? inventory_sku.available : 0
+        inventory_sku? ? inventory_sku.available_to_sell : 0
       end
 
       def displayable?
