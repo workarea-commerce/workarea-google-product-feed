@@ -17,9 +17,20 @@ module Workarea
         Array.wrap(model.fetch_detail('size')).first
       end
 
+       def inventory
+        inventory_sku? ? inventory_sku.available_to_sell : 0
+      end
+
       def displayable?
-        return false unless options[:inventory_sku].present?
-        options[:inventory_sku].displayable?
+        inventory_sku? ? inventory_sku.displayable? : false
+      end
+
+      def inventory_sku
+        options[:inventory_sku]
+      end
+
+      def inventory_sku?
+        options[:inventory_sku].present?
       end
     end
   end
