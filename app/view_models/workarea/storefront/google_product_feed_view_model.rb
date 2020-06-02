@@ -24,6 +24,7 @@ module Workarea
           'link',
           'image_link',
           'availability',
+          'inventory',
           'condition',
           'brand',
           'color',
