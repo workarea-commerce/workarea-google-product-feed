@@ -111,7 +111,7 @@ module Workarea
           product_ids: [product.id]
         )
 
-        assert_equal('Apparel & Accessories', rows.second[11])
+        assert_equal('Apparel & Accessories', rows.second[12])
       end
     end
 
