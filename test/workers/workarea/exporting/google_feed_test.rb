@@ -46,7 +46,7 @@ module Workarea
           assert_equal('http://www.example.com/products/test-product?sku=' + product.skus.first.to_s, row[4])
           assert_equal("http://www.assethost.com/product_images/test-product/#{product.images.first.id}/detail.jpg?c=0", row[5])
           assert_equal('in stock', row[6])
-          assert_equal('0', row[7])
+          assert_equal('99999', row[7])
           assert_equal('new', row[8])
           assert_equal('Workarea', row[9])
           assert_equal('Red', row[10])
@@ -64,7 +64,7 @@ module Workarea
           assert_equal('http://www.example.com/products/test-product?sku=' + product.skus.second.to_s, row[4])
           assert_equal("http://www.assethost.com/product_images/test-product/#{product.images.first.id}/detail.jpg?c=0", row[5])
           assert_equal('in stock', row[6])
-          assert_equal('0', row[7])
+          assert_equal('99999', row[7])
           assert_equal('new', row[8])
           assert_equal('Workarea', row[9])
           assert_equal('Blue', row[10])
@@ -140,8 +140,10 @@ module Workarea
       )
 
       create_inventory(id: product.variants.first.sku, available: 1)
+      create_inventory(id: product.variants.second.sku, available: 2)
 
       assert_equal('1', rows.second[7])
+      assert_equal('2', rows.third[7])
     end
 
     def test_export_skus_inventory_with_no_inventory_skus
@@ -151,7 +153,7 @@ module Workarea
         product_ids: [product.id]
       )
 
-      assert_equal('0', rows.second[7])
+      assert_equal('99999', rows.second[7])
     end
 
     def test_does_not_export_inactive_products
@@ -180,26 +182,26 @@ module Workarea
 
     private
 
-      def set_asset_host
-        @_asset_host = Rails.application.config.action_controller.asset_host
-        Rails.application.config.action_controller.asset_host = 'http://www.assethost.com'
-      end
+    def set_asset_host
+      @_asset_host = Rails.application.config.action_controller.asset_host
+      Rails.application.config.action_controller.asset_host = 'http://www.assethost.com'
+    end
 
-      def reset_asset_host
-        Rails.application.config.action_controller.asset_host = @_asset_host
-      end
+    def reset_asset_host
+      Rails.application.config.action_controller.asset_host = @_asset_host
+    end
 
-      def google_feed
-        @google_feed ||= Exporting::GoogleFeed.new
-      end
+    def google_feed
+      @google_feed ||= Exporting::GoogleFeed.new
+    end
 
-      def filename
-        @filename ||= Workarea::Exporting::GoogleFeed.temp_file
-      end
+    def filename
+      @filename ||= Workarea::Exporting::GoogleFeed.temp_file
+    end
 
-      def rows
-        google_feed.generate_csv
-        File.open(filename).read.split("\n").map { |line| line.split("\t") }
-      end
+    def rows
+      google_feed.generate_csv
+      File.open(filename).read.split("\n").map { |line| line.split("\t") }
+    end
   end
 end
