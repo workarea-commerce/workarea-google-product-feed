@@ -1,17 +1,6 @@
 module Workarea
   module Storefront
     class GoogleProductFeedViewModel < ApplicationViewModel
-      module ProductImageUrl
-        include Workarea::ApplicationHelper
-        include Workarea::I18n::DefaultUrlOptions
-        include ActionView::Helpers::AssetUrlHelper
-        include Core::Engine.routes.url_helpers
-        extend self
-
-        def mounted_core
-          self
-        end
-      end
       include ActionView::Helpers::SanitizeHelper
       include ActionView::Helpers::TextHelper
 
@@ -46,11 +35,6 @@ module Workarea
         model.google_category.presence ||
         category&.google_name.presence ||
         Workarea::GoogleProductFeed.default_category
-      end
-
-      # TODO this should be changed to return sku images if present
-      def image
-        ProductImageUrl.product_image_url(images.primary, GoogleProductFeed.image_size)
       end
 
       def meta_description
@@ -92,24 +76,12 @@ module Workarea
           @categorization ||= Workarea::Categorization.new(model)
         end
 
-        def host
-          Workarea.config.host
-        end
-
-        def images
-          @images ||= Storefront::ProductViewModel::ImageCollection.new(model, options)
-        end
-
         def inventory
           @inventory ||= Inventory::Collection.new(model.variants.map(&:sku))
         end
 
         def pricing
           @pricing ||= Pricing::Collection.new(model.variants.map(&:sku))
-        end
-
-        def primary_image
-          model.images.asc(:position).first
         end
 
         def sanitize_description(description)

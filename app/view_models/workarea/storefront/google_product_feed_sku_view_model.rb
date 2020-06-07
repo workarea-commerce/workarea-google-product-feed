@@ -1,6 +1,18 @@
 module Workarea
   module Storefront
     class GoogleProductFeedSkuViewModel < ApplicationViewModel
+      module ProductImageUrl
+        include Workarea::ApplicationHelper
+        include Workarea::I18n::DefaultUrlOptions
+        include ActionView::Helpers::AssetUrlHelper
+        include Core::Engine.routes.url_helpers
+        extend self
+
+        def mounted_core
+          self
+        end
+      end
+
       def status
         model.active? ? 'in stock' : 'out of stock'
       end
@@ -11,6 +23,22 @@ module Workarea
 
       def condition
         'new'
+      end
+
+      def image_url
+        return nil unless image.present?
+        ProductImageUrl.product_image_url(image, GoogleProductFeed.image_size)
+      end
+
+      def image
+        sku_image || images.primary
+      end
+
+      def sku_image
+        sku_options = model.details.values.flat_map { |options| options.map(&:optionize) }
+        product.images.detect do |image|
+          sku_options.include?(image.option&.optionize)
+        end
       end
 
       def size
@@ -32,6 +60,12 @@ module Workarea
       def inventory_sku?
         options[:inventory_sku].present?
       end
+
+      private
+
+        def images
+          Storefront::ProductViewModel::ImageCollection.new(product, options)
+        end
     end
   end
 end
