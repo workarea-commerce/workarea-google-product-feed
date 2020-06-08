@@ -26,12 +26,12 @@ module Workarea
       end
 
       def image_url
-        return nil unless image.present?
+        return unless image.present?
         ProductImageUrl.product_image_url(image, GoogleProductFeed.image_size)
       end
 
       def image
-        sku_image || images.primary
+        @image ||= sku_image || images.primary
       end
 
       def sku_image
