@@ -30,17 +30,6 @@ module Workarea
         ProductImageUrl.product_image_url(image, GoogleProductFeed.image_size)
       end
 
-      def image
-        @image ||= sku_image || images.primary
-      end
-
-      def sku_image
-        sku_options = model.details.values.flat_map { |options| options.map(&:optionize) }
-        product.images.detect do |image|
-          sku_options.include?(image.option&.optionize)
-        end
-      end
-
       def size
         Array.wrap(model.fetch_detail('size')).first
       end
@@ -63,8 +52,19 @@ module Workarea
 
       private
 
-        def images
-          Storefront::ProductViewModel::ImageCollection.new(product, options)
+        def image
+          @image ||= sku_image || primary_image
+        end
+
+        def sku_image
+          sku_options = model.details.values.flat_map { |options| options.map(&:optionize) }
+          product.images.detect do |image|
+            sku_options.include?(image.option&.optionize)
+          end
+        end
+
+        def primary_image
+          Storefront::ProductViewModel.wrap(product, sku: model.sku).primary_image
         end
     end
   end
