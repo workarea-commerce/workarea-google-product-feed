@@ -53,18 +53,7 @@ module Workarea
       private
 
         def image
-          @image ||= sku_image || primary_image
-        end
-
-        def sku_image
-          sku_options = model.details.values.flat_map { |options| options.map(&:optionize) }
-          product.images.detect do |image|
-            sku_options.include?(image.option&.optionize)
-          end
-        end
-
-        def primary_image
-          Storefront::ProductViewModel.wrap(product, sku: model.sku).primary_image
+          @image ||= Storefront::ProductViewModel.wrap(product, sku: model.sku).primary_image
         end
     end
   end
