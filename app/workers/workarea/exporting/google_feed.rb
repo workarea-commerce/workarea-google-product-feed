@@ -74,7 +74,7 @@ module Workarea
           product.name,
           product.meta_description,
           product_url(product, host: host, sku: sku.sku),
-          product.image,
+          sku.image_url,
           sku.status,
           sku.inventory,
           sku.condition,
