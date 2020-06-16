@@ -1,3 +1,30 @@
+Workarea Google Product Feed 3.2.0 (2020-06-16)
+--------------------------------------------------------------------------------
+
+*   Use image that matches the SKU
+
+    * now using variant images if one exists
+
+    * memoized image in google_product_feed_sku_view_model
+
+    * Moved methods to private, calling product_view_model primary_image instead of directly going to the ImageCollection
+
+    * Getting variant image the workarea way
+
+    JurgenHahn
+
+*   Added inventory column. Inventory returns 0 if no inventory_sku present.
+
+
+    JurgenHahn
+
+*   Update README
+
+
+    Matt Duffy
+
+
+
 Workarea Google Product Feed 3.1.4 (2019-08-22)
 --------------------------------------------------------------------------------
 
