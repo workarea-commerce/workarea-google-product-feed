@@ -18,11 +18,6 @@ Workarea Google Product Feed 3.2.0 (2020-06-16)
 
     JurgenHahn
 
-*   Update README
-
-
-    Matt Duffy
-
 
 
 Workarea Google Product Feed 3.1.4 (2019-08-22)
